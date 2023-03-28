@@ -162,8 +162,10 @@ cython_debug/
 # vscode
 .vscode/
 
+dump.rdb
 # test folders
 help_info/
 logs/
 (test)*
 .env
+Dockerfile

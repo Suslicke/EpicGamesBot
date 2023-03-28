@@ -5,10 +5,9 @@ services:
     container_name: 'postgres'
     image: postgres:latest
     environment:
-       - POSTGRES_USER=suslicketeam
+       - POSTGRES_USER=USER
        - POSTGRES_PASSWORD=postgres
-       - POSTGRES_DB=EpicGamesBot
-       - POSTGRES_PORT=5434
+       - POSTGRES_DB=NAME
     expose:
       - "127.0.0.1:5434"
     ports:
@@ -28,21 +27,6 @@ services:
     command: redis-server --save 20 1
     restart: always
 
-  # python:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - POSTGRES_USER=suslicketeam
-  #     - POSTGRES_PASSWORD=AndrewSus228
-  #     - POSTGRES_DB=EpicGamesBot
-  #     - REDIS_HOST=redis
-  #     - REDIS_PORT=6379
-  #     - POSTGRES_PORT=5434
-  #   depends_on:
-  #     - postgres
-  #     - redis
-  #   restart: always
 
 volumes:
   postgres:
