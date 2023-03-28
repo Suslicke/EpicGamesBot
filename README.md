@@ -38,6 +38,7 @@ export POSTGRES_PASSWORD=postgres
 export POSTGRES_DB=DB_NAME
 export REDIS_HOST=redis
 export REDIS_PORT=6379
+export API_TOKEN=API_TOKEN
 ```
 
 Change settings for docker in **docker-compose.yml**:

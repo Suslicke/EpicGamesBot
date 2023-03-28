@@ -4,8 +4,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import os
 
-API_TOKEN = '1918087749:AAGaflnHxWlU5Bj0GusrgrTik9zlBXv0inc'
+API_TOKEN = os.getenv('API_TOKEN')
 
 def parser_config():
     options = webdriver.ChromeOptions()
