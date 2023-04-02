@@ -7,7 +7,7 @@ services:
     environment:
        - POSTGRES_USER=USER
        - POSTGRES_PASSWORD=postgres
-       - POSTGRES_DB=NAME
+       - POSTGRES_DB=DB_NAME
     expose:
       - "127.0.0.1:5434"
     ports:
