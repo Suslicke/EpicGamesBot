@@ -47,7 +47,7 @@ class db_queries:
             print(f'Запрос не выполнени по причине: TypeError: {type(e).__name__}: {e}.')
             
             
-    def create_game_detail(title, short_desc, genres, features):
+    def create_game_detail(title, short_desc, genres, features, game_id):
         try:
             with Session(engine) as session:
                 try:
@@ -71,9 +71,22 @@ class db_queries:
                         session.close()
                         return game_detail
                 else:
-                    game_detail = session.query(GameDetail).filter(GameDetail.short_desc == short_desc).first()
-                    session.close()
-                    return game_detail
+                    if not session.query(GameDetail).filter(GameDetail.game_fk == game_id).first():
+                        game = session.query(Game).filter(Game.title == title).first()
+                        game_detail = GameDetail(
+                            game_fk = game_id,
+                            short_desc = short_desc,
+                            genres = genres,
+                            features = "Redistribution " + features,
+                            )
+                        session.add(game_detail)
+                        session.commit()
+                        session.close()
+                        return game_detail
+                    # else:
+                    #     game_detail = session.query(GameDetail).filter(GameDetail.short_desc == short_desc).first()
+                    #     session.close()
+                    
                         
         except Exception as e:
             print(f'Запрос не выполнени по причине: TypeError: {type(e).__name__}: {e}.')
@@ -134,7 +147,7 @@ class db_queries:
     def get_game_by_title(title):
         try:
             with Session(engine) as session:
-                return session.query(Game).filter(Game.title == title).first()
+                return session.query(Game).filter(Game.title == title).order_by(desc(Game.timestamp)).first()
         except Exception as e:
             print(f'Запрос не выполнени по причине: TypeError: {type(e).__name__}: {e}.')
     
@@ -171,4 +184,11 @@ class db_queries:
                 return session.query(User).filter(User.telegram_user_id == telegram_user_id).first()
         except Exception as e:
             print(f'Запрос не выполнени по причине: TypeError: {type(e).__name__}: {e}.')
-            
+
+    
+    def get_last_game():
+        try:
+            with Session(engine) as session:
+                return session.query(Game).order_by(desc(Game.timestamp)).limit(4)
+        except Exception as e:
+            print(f'Запрос не выполнени по причине: TypeError: {type(e).__name__}: {e}.')

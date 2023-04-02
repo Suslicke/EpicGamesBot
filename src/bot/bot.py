@@ -58,18 +58,24 @@ async def soon_free(message: types.Message):
 
 @dp.message_handler(regexp="All")
 async def all_free(message: types.Message):
-    games = db_queries.get_game()
+    try:
+        games = db_queries.get_game()
+    except:
+        pass
     
     if games == None:
         await message.answer("No information in base")
     
     for game in games:
-        game_detail = db_queries.get_game_detail(game_id=game.id)
-        rec_game_detail_specifications = db_queries.get_game_detail_specifications(game_detail_id=game_detail.id, type="Recommended")
-        min_game_detail_specifications = db_queries.get_game_detail_specifications(game_detail_id=game_detail.id, type="Minimum")
+        try:
+            game_detail = db_queries.get_game_detail(game_id=game.id)
+            rec_game_detail_specifications = db_queries.get_game_detail_specifications(game_detail_id=game_detail.id, type="Recommended")
+            min_game_detail_specifications = db_queries.get_game_detail_specifications(game_detail_id=game_detail.id, type="Minimum")
         
-        action = create_message(game, game_detail, min_game_detail_specifications, rec_game_detail_specifications)
-        await message.answer(action)
+            action = create_message(game, game_detail, min_game_detail_specifications, rec_game_detail_specifications)
+            await message.answer(action)
+        except:
+            continue
 
 
 async def broadcaster():

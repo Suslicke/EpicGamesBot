@@ -17,27 +17,29 @@ def create_message(game, game_detail, min_game_detail_specifications, rec_game_d
     # f"💳Бывшая цена: {value[num]['Цена']}💳\n" \
     time = game.time_end.strftime("%d.%m.%Y, %H:%M:%S")
     action = f"❗ Статус: {game.status}❗️\n" \
-                                f"‼️Ссылка: {game.game_url}‼️\n" \
-                                f"❗️Название игры: {game.title}❗️\n" \
+                                f"‼️Link: {game.game_url}‼️\n" \
+                                f"❗️Game name: {game.title}❗️\n" \
                                 f"\n" \
-                                f"🔥Дата окончания раздачи: {time}🔥️ МСК\n" \
+                                f"🔥Giveaway end/start date: {time}🔥️ МСК\n" \
                                 f"\n" \
-                                f"🔥️Жанр: {game_detail.genres}🔥️\n" \
+                                f"🔥️Genres: {game_detail.genres}🔥️\n" \
                                 f"\n" \
-                                f"📖Описание: {game_detail.short_desc} 📖️\n" \
+                                f"📖Features: {game_detail.features} 📖️\n" \
                                 f"\n" \
-                                f"💾Минимальные системные требования: 💾\n" \
-                                f"Опреционная система: {min_game_detail_specifications.os}\n" \
-                                f"Процессор: {min_game_detail_specifications.cpu}\n" \
-                                f"Оперативная память: {min_game_detail_specifications.memory}\n" \
-                                f"Видеокарта: {min_game_detail_specifications.gpu}\n" \
-                                f"Место на диске: {min_game_detail_specifications.space}\n" \
+                                f"📖Description: {game_detail.short_desc} 📖️\n" \
                                 f"\n" \
-                                f"🖥Рекомендованные системные требования: 🖥\n" \
-                                f"Опреционная система: {rec_game_detail_specifications.os} \n" \
-                                f"Процессор: {rec_game_detail_specifications.cpu} \n" \
-                                f"Оперативная память: {rec_game_detail_specifications.memory} \n" \
-                                f"Видеокарта: {rec_game_detail_specifications.gpu}\n" \
-                                f"Место на диске: {rec_game_detail_specifications.space}\n"
+                                f"💾Minimal system requirements: 💾\n" \
+                                f"OS: {min_game_detail_specifications.os}\n" \
+                                f"CPU: {min_game_detail_specifications.cpu}\n" \
+                                f"RAM: {min_game_detail_specifications.memory}\n" \
+                                f"GPU: {min_game_detail_specifications.gpu}\n" \
+                                f"Space: {min_game_detail_specifications.space}\n" \
+                                f"\n" \
+                                f"Recommended system requirements: 🖥\n" \
+                                f"OS: {rec_game_detail_specifications.os} \n" \
+                                f"CPU: {rec_game_detail_specifications.cpu} \n" \
+                                f"RAM: {rec_game_detail_specifications.memory} \n" \
+                                f"GPU: {rec_game_detail_specifications.gpu}\n" \
+                                f"Space: {rec_game_detail_specifications.space}\n"
                                 
     return action

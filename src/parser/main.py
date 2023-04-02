@@ -42,28 +42,42 @@ def parse_free_games(soup, url):
     for game_card in game_cards:
         game_title = game_card.find("div", {"data-testid": "offer-title-info-title"}).find_next('div').contents[0]
         
-        game_status = game_card.find("div", {"data-testid": "offer-card-image-landscape"}).find_next_sibling("div").find("span").contents[0]
+        try:
+            game_status = game_card.find("div", {"data-testid": "offer-card-image-landscape"}).find_next_sibling("div").find("span").contents[0]
+        except:
+            game_status = "Epic games doesn't return result"
+        
         game_status_datetime = game_card.find("span", {"data-testid": "offer-title-info-subtitle"}).find("span").find_all("time")
+        game_status_span = game_card.find("span", {"data-testid": "offer-title-info-subtitle"}).find("span")
+        
+        if game_status == "Epic games doesn't return result":
+            if game_status_span.contents[0].replace(' - ', '') == "Free Now":
+                game_status = "Free Now"
+            else:
+                game_status = "Coming Soon"
+                
         
         active_time = datetime.strptime(game_status_datetime[0].get('datetime'), "%Y-%m-%dT%H:%M:%S.%fZ") + timedelta(hours=3)
         
         soon_time = datetime.strptime(game_status_datetime[1].get('datetime'), "%Y-%m-%dT%H:%M:%S.%fZ") + timedelta(hours=3)
         active_time_end = (active_time - time_now)
+        print(active_time)
         
         game_image_url = game_card.find("img")["src"]
         
         game_url = url + game_card.find("a")["href"]
         
         new = db_queries.create_game(game_title, game_image_url, game_status, game_url, active_time)
-        
+        print(new)
         cache_worker.set_new_game_time(str(active_time))
         cache_worker.set_new_game(new)
 
 
 if __name__ == "__main__":
     schedule.every().day.at("00:00:00").do(main)
-    # schedule.every().day.at("12:30:45").do(main)
+    # schedule.every().day.at("23:25:30").do(main)
     # schedule.every(1).minutes.do(main)
     while True:
         schedule.run_pending()
         time.sleep(1)
+    # main()

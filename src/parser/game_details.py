@@ -165,9 +165,9 @@ def parse_game_detail(soup):
     
     
     game = db_queries.get_game_by_title(title)
-    db_queries.create_game_detail(title, short_desc, genres, features)
-    
     game_id = game.id
+    db_queries.create_game_detail(title, short_desc, genres, features, game_id)
+    
     
     game_detail_id = db_queries.get_game_detail(game_id).id
     
