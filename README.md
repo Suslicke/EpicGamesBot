@@ -46,8 +46,6 @@ Change settings for docker in **docker-compose.yml**:
 POSTGRES_USER=USER
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=DB_NAME
-REDIS_HOST=redis
-REDIS_PORT=6379
 ```
 Run command
 ```
