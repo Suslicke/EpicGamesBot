@@ -29,17 +29,25 @@ class db_queries:
         try:
             with Session(engine) as session:
                 if not session.query(Game).filter(Game.title == title).filter(Game.time_end == time_end).first():
-                    game = Game(
-                        title = title,
-                        image_url = image_url,
-                        status = status,
-                        game_url = game_url,
-                        time_end = time_end,
-                    )
-                    session.add(game)
-                    session.commit()
-                    session.close()
-                    return True
+                    if session.query(Game).filter(Game.title == title).filter(Game.status == "Coming Soon").first():
+                        game = session.query(Game).filter(Game.title == title).filter(Game.status == "Coming Soon").first()
+                        game.status = status
+                        game.time_end = time_end
+                        session.commit()
+                        session.close()
+                        return True
+                    else:
+                        game = Game(
+                            title = title,
+                            image_url = image_url,
+                            status = status,
+                            game_url = game_url,
+                            time_end = time_end,
+                        )
+                        session.add(game)
+                        session.commit()
+                        session.close()
+                        return True
                 else:
                     session.close()
                     return False
